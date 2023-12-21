@@ -13,14 +13,10 @@
           <div class="col-sm">
           </div>
           <div class="col-sm">
-            <form>
-              <div>
+            <form method="POST" novalidate>
+              <div>    
                 <div>
-                  <!-- <input type="text" class="form-control form-control-lg py-2 mb-3" id="form-title" name=""
-                    placeholder="Длинная ссылка"> -->
-                  
                   {{ form.csrf_token }}
-                  <!-- {{ form.original_link.label }} {{ form.original_link }}<br /> -->
                   {{ form.original_link(class="form-control form-control-lg py-3 mb-3", placeholder=form.original_link.label.text) }}
                   <p>  
                     {% if form.original_link.errors %}
@@ -40,7 +36,7 @@
                     {% endif %}
                   </p>
                 </div>
-                {{ form.submit(class="button px-5 py-3 btn", value="Создать") }}
+                {{ form.submit(class="btn btn-primary", value="Создать") }}
               </div>
             </form>
           </div>
@@ -63,7 +59,10 @@
                 {% endif %}
               {% endwith %}
             {% if custom_id %}
-              <a href="{{ url_for('redirection', custom_id=custom_id, _external=True) }}"></a>
+              <h5 class="text-center">
+                Ваша новая ссылка готова:
+                <a href="{{ url_for('redirection', custom_id=custom_id, _external=True) }}">{{ url_for('redirection', custom_id=custom_id, _external=True) }}</a>
+              </h5>
             {% endif %}
             </p>
           </div>
