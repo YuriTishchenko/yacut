@@ -60,7 +60,7 @@
               {% endwith %}
             {% if custom_id %}
               <h5 class="text-center">
-                Ваша новая ссылка готова:
+                Ваша новая ссылку готова:
                 <a href="{{ url_for('redirection', custom_id=custom_id, _external=True) }}">{{ url_for('redirection', custom_id=custom_id, _external=True) }}</a>
               </h5>
             {% endif %}
