@@ -28,12 +28,12 @@ def add_opinion():
     if not is_url(original_link):
         raise InvalidAPIUsage('Недопустимый вариант URL.')
     if not check_id(data['custom_id']):
-            raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
+        raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
     url.from_dict(data)
     db.session.add(url)
     db.session.commit()
     return jsonify({
-        'url':  url.original,
+        'url': url.original,
         'short_link': url_for('redirection', custom_id=url.short, _external=True)
     }), HTTPStatus.CREATED
 
@@ -42,6 +42,5 @@ def add_opinion():
 def get_url(short_id):
     url = URLMap.query.filter_by(short=short_id).first()
     if url is None:
-        raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND) 
+        raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
     return jsonify({'url': url.original}), HTTPStatus.OK
-
