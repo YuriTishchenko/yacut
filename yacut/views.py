@@ -7,7 +7,7 @@ from .forms import URLForm
 from .models import URLMap
 from .utils import get_unique_short_id
 from .validators import check_id, empty_id, is_url
- 
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
