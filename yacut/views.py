@@ -15,7 +15,7 @@ def index_view():
     if form.validate_on_submit():
         original_link = form.original_link.data
         custom_id = form.custom_id.data
-        not_empty_custom_id = get_unique_short_id() if empty_id(custom_id) else custom_id
+        not_empty_custom_id = get_unique_short_id() if (custom_id is None or empty_id(custom_id)) else custom_id
         if not is_url(original_link):
             flash('Недопустимый вариант URL.')
             return render_template('index.html', form=form)
