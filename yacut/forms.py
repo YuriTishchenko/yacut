@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
-from wtforms.validators import DataRequired, Length, Optional
+from wtforms.validators import DataRequired, Length, Optional, Regexp
 
-from .constants import MAX_LENGTH
+from .constants import MAX_LENGTH, PATTERN_CUSTOM_ID
 
 
 class URLForm(FlaskForm):
@@ -18,6 +18,7 @@ class URLForm(FlaskForm):
         validators=[
             Length(1, MAX_LENGTH),
             Optional(),
+            Regexp(PATTERN_CUSTOM_ID, message='Допустимы только латинские буквы и цифры.'),
         ]
     )
     submit = SubmitField('Создать')

@@ -22,7 +22,7 @@ def index_view():
         if not check_id(not_empty_custom_id):
             flash('Недопустимый вариант короткой ссылки.')
             return render_template('index.html', form=form)
-        if URLMap.query.filter_by(short=custom_id).first():
+        if URLMap.query.filter_by(short=not_empty_custom_id).scalar():
             flash('Предложенный вариант короткой ссылки уже существует.')
             return render_template('index.html', form=form)
         url_map = URLMap(
@@ -37,7 +37,5 @@ def index_view():
 
 @app.route('/<string:custom_id>', methods=['GET'])
 def redirection(custom_id):
-    url = URLMap.query.filter_by(short=custom_id).first()
-    if not url:
-        abort(HTTPStatus.NOT_FOUND)
+    url = URLMap.query.filter_by(short=custom_id).first_or_404()
     return redirect(url.original)

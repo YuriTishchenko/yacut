@@ -16,19 +16,17 @@ def add_opinion():
         raise InvalidAPIUsage('Отсутствует тело запроса')
     if 'url' not in data:
         raise InvalidAPIUsage('\"url\" является обязательным полем!')
-    original_link = data['url']
-    if ('custom_id' not in data):
-        data['custom_id'] = get_unique_short_id()
-    if data['custom_id'] is None or (data['custom_id'].strip() == ''):
-        data['custom_id'] = get_unique_short_id()
-    if URLMap.query.filter_by(short=data['custom_id']).first() is not None:
+    original_link = data.get('url')
+    custom_id = data.get('custom_id')
+    if custom_id is None or (custom_id.strip() == ''):
+        custom_id = get_unique_short_id()
+    if URLMap.query.filter_by(short=custom_id).scalar():
         raise InvalidAPIUsage('Предложенный вариант короткой ссылки уже существует.')
     if not is_url(original_link):
         raise InvalidAPIUsage('Недопустимый вариант URL.')
-    if not is_url(original_link):
-        raise InvalidAPIUsage('Недопустимый вариант URL.')
-    if not check_id(data['custom_id']):
+    if not check_id(custom_id):
         raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
+    data['custom_id'] = custom_id
     url.from_dict(data)
     db.session.add(url)
     db.session.commit()

@@ -7,8 +7,10 @@ from .models import URLMap
 
 def get_unique_short_id():
     unique_str = get_random_str()
-    while URLMap.query.filter_by(short=unique_str).first() is not None:
+    i = 0
+    while i < 10 or URLMap.query.filter_by(short=unique_str).scalar():
         unique_str = get_random_str()
+        i += 1
     return unique_str
 
 
