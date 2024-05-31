@@ -43,7 +43,13 @@ python3 -m pip install --upgrade pip
 ```
 pip install -r requirements.txt
 ```
-## Технологии
-Python 3, Flask, SQLAlchemy
+Создайте и заполните .env
+```
+FLASK_APP=yacut
+FLASK_ENV=production
+DATABASE_URI=<sqlite:///db.sqlite3>
+SECRET_KEY=<Your secret key>
+```
+****
 ## Автор
 Тищенко Юрий
